@@ -3,7 +3,8 @@
 module Api
   module V1
     class PostsController < ApplicationController
-      before_action :set_post, only: [:show, :update, :destroy]
+      before_action :authorize_access_request!, except: %i[index show]
+      before_action :set_post, only: %i[show update destroy]
 
       # GET /posts
       def index
