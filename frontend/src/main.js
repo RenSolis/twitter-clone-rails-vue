@@ -3,7 +3,7 @@ import VueAxios from 'vue-axios';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { securedAxiosInstance, plainAxiosInstance } from '../axios/index';
+import { securedAxiosInstance, plainAxiosInstance } from './axios/index';
 
 // Style Files
 import './main.scss';

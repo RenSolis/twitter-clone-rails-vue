@@ -22,6 +22,7 @@ securedAxiosInstance.interceptors.request.use((config) => {
   const method = config.method.toUpperCase();
 
   if (method !== 'OPTIONS' && method !== 'GET') {
+    /* eslint-disable no-param-reassign */
     config.headers = {
       ...config.headers,
       'X-CSRF-TOKEN': localStorage.csrf,
@@ -39,21 +40,21 @@ securedAxiosInstance.interceptors.response.use(null, (error) => {
         localStorage.signedIn = true;
 
         // After another successfull refresh - repeat original request
-        let retryConfig = error.response.config;
+        const retryConfig = error.response.config;
         retryConfig.headers['X-CSRF-TOKEN'] = localStorage.csrf;
         return plainAxiosInstance.request(retryConfig);
-      }).catch((error) => {
+      }).catch((errorRefresh) => {
         delete localStorage.csrf;
         delete localStorage.signedIn;
 
         // Redirect to root if refresh fails
-        location.replace('/');
+        window.location.replace('/');
 
-        return Promise.reject(error);
+        return Promise.reject(errorRefresh);
       });
-  } else {
-    return Promise.reject(error);
   }
+
+  return Promise.reject(error);
 });
 
 export { securedAxiosInstance, plainAxiosInstance };
