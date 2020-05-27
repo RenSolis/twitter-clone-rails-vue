@@ -6,12 +6,12 @@ Rails.application.routes.draw do
   end
 
   # Refresh Controller
-  post 'refresh', 'refresh#create'
+  post 'refresh', to: 'refresh#create'
 
   # Signin Controller
-  post 'signin', 'signin#create'
-  delete 'sigin', 'signin#create'
+  post 'signin', to: 'signin#create'
+  delete 'sigin', to: 'signin#create'
 
   # Signup Controller
-  post 'signup', 'signup#create'
+  post 'signup', to: 'signup#create'
 end
