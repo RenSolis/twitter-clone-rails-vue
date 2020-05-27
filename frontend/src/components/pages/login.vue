@@ -14,19 +14,54 @@
 
     <h1 class="text-white text-2xl font-bold mt-8 mb-3">Iniciar sesión en Twitter</h1>
 
-    <form class="w-full">
+    <form class="w-full" @submit.prevent="submitLogin">
       <div class="flex flex-col">
         <custom-input
           type="email"
           label="Teléfono, correo o usuario"
+          @sendInput="data => email = data"
         />
 
         <custom-input
           type="password"
           label="Contraseña"
+          @sendInput="data => password = data"
         />
+
+        <div class="py-2 px-6">
+          <div
+            class="h-12 bg-light-blue rounded-full"
+            :class="{ 'opacity-50': disabled }"
+          >
+            <button
+              class="font-bold text-white text-sm h-full w-full leading-10"
+              role="button"
+              :disabled="disabled"
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        </div>
       </div>
     </form>
+
+    <div class="mt-6 text-sm flex justify-center items-center">
+      <router-link
+        class="text-link hover:underline"
+        to="/account/begin_password_reset"
+      >
+        ¿Olvidaste tu contraseña?
+      </router-link>
+
+      <span class="text-gray-88 block w-3 h-5 leading-3">.</span>
+
+      <router-link
+        class="text-link hover:underline"
+        to="/i/flow/signup"
+      >
+        Regístrate en Twitter
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -36,5 +71,29 @@ import CustomInput from '../atoms/CustomInput/input.vue';
 export default {
   name: 'Login',
   components: { CustomInput },
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    async submitLogin() {
+      try {
+        const response = await this.$http.plain.post('/signin', {
+          email: this.email,
+          password: this.password,
+        });
+        console.log('response', response);
+      } catch (error) {
+        console.log('error', error);
+      }
+    },
+  },
+  computed: {
+    disabled() {
+      return !(this.email && this.password);
+    },
+  },
 };
 </script>

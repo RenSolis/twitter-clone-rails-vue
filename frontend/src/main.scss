@@ -7,6 +7,7 @@ $twitter-darkblue: #15202B;
 $gray88: #8899a6;
 $blue19: #192734;
 $light-blue: #1da0f2;
+$link: #1b95e0;
 
 * {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
@@ -21,6 +22,10 @@ $light-blue: #1da0f2;
   background-color: $blue19;
 }
 
+.bg-light-blue {
+  background-color: $light-blue;
+}
+
 .input-border {
   border-bottom: 2px solid $gray88;
 }
@@ -31,6 +36,10 @@ $light-blue: #1da0f2;
 
 .text-light-blue {
   color: $light-blue;
+}
+
+.text-link {
+  color: $link;
 }
 
 .appearance-none {

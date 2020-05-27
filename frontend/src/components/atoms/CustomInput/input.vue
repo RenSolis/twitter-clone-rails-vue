@@ -11,10 +11,12 @@
         <div class="overflow-hidden">
           <div class="text-lg">
             <input
+              v-model="inputValue"
               class="appearance-none w-full bg-transparent text-white"
               :type="type"
               @focus="focusInput"
               @blur="blurInput"
+              @input="$emit('sendInput', inputValue)"
             />
           </div>
         </div>
@@ -35,6 +37,11 @@ export default {
       type: String,
       default: 'text',
     },
+  },
+  data() {
+    return {
+      inputValue: '',
+    };
   },
   methods: {
     focusInput() {
